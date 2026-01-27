@@ -5,8 +5,10 @@
 
 # Dependencies
 node_modules/
-package-lock.json
 yarn.lock
+
+# Only ignore lockfiles for tools, not project lockfiles
+# package-lock.json files are tracked for deterministic installs
 
 # Build outputs
 dist/
