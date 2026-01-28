@@ -1,22 +1,22 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import Navigation from '@/components/Navigation';
-import { authAPI } from '@/lib/api';
-import { useAuthStore } from '@/lib/store';
-import { motion } from 'framer-motion';
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import Navigation from "@/components/Navigation";
+import { authAPI } from "@/lib/api";
+import { useAuthStore } from "@/lib/store";
+import { motion } from "framer-motion";
 
 export default function Login() {
   const router = useRouter();
   const { setUser, setToken } = useAuthStore();
 
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,10 +26,10 @@ export default function Login() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError("");
 
     if (!formData.email || !formData.password) {
-      setError('Email and password are required');
+      setError("Email and password are required");
       return;
     }
 
@@ -39,9 +39,9 @@ export default function Login() {
       const response = await authAPI.login(formData.email, formData.password);
       setToken(response.data.token);
       setUser(response.data.user);
-      router.push('/deals');
+      router.push("/deals");
     } catch (err: any) {
-      setError(err.response?.data?.error || 'Login failed');
+      setError(err.response?.data?.error || "Login failed");
     } finally {
       setLoading(false);
     }
@@ -58,7 +58,9 @@ export default function Login() {
         >
           <div className="card">
             <h1 className="text-3xl font-bold mb-2">Welcome Back</h1>
-            <p className="text-gray-400 mb-8">Sign in to access your claimed deals</p>
+            <p className="text-gray-400 mb-8">
+              Sign in to access your claimed deals
+            </p>
 
             {error && (
               <motion.div
@@ -72,24 +74,38 @@ export default function Login() {
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">Email</label>
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-300 mb-2"
+                >
+                  Email
+                </label>
                 <input
+                  id="email"
                   type="email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
+                  autoComplete="email"
                   className="input-field"
                   placeholder="you@startup.com"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">Password</label>
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium text-gray-300 mb-2"
+                >
+                  Password
+                </label>
                 <input
+                  id="password"
                   type="password"
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
+                  autoComplete="current-password"
                   className="input-field"
                   placeholder="••••••••"
                 />
@@ -102,12 +118,12 @@ export default function Login() {
                 type="submit"
                 className="btn-primary w-full"
               >
-                {loading ? 'Signing In...' : 'Sign In'}
+                {loading ? "Signing In..." : "Sign In"}
               </motion.button>
             </form>
 
             <p className="text-gray-400 text-center mt-6">
-              Don't have an account?{' '}
+              Don't have an account?{" "}
               <Link href="/register" className="text-accent hover:underline">
                 Sign up
               </Link>

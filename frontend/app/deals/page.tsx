@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import Navigation from '@/components/Navigation';
-import DealCard from '@/components/DealCard';
-import { DealCardSkeleton } from '@/components/LoadingSkeleton';
-import { dealsAPI } from '@/lib/api';
-import { useAuthStore } from '@/lib/store';
-import { motion } from 'framer-motion';
+import { useState, useEffect } from "react";
+import Navigation from "@/components/Navigation";
+import DealCard from "@/components/DealCard";
+import { DealCardSkeleton } from "@/components/LoadingSkeleton";
+import { dealsAPI } from "@/lib/api";
+import { useAuthStore } from "@/lib/store";
+import { motion } from "framer-motion";
 
 interface Deal {
   _id?: string;
@@ -15,7 +15,7 @@ interface Deal {
   description: string;
   category: string;
   discount: number;
-  discountType: 'percentage' | 'flat';
+  discountType: "percentage" | "flat";
   partner: {
     name: string;
     logo: string;
@@ -27,21 +27,21 @@ interface Deal {
 }
 
 const CATEGORIES = [
-  'hosting',
-  'analytics',
-  'payment',
-  'communication',
-  'productivity',
-  'design',
-  'development',
-  'marketing',
+  "hosting",
+  "analytics",
+  "payment",
+  "communication",
+  "productivity",
+  "design",
+  "development",
+  "marketing",
 ];
 
 export default function DealsPage() {
   const [deals, setDeals] = useState<Deal[]>([]);
   const [loading, setLoading] = useState(true);
-  const [search, setSearch] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('');
+  const [search, setSearch] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
   const [page, setPage] = useState(0);
   const [total, setTotal] = useState(0);
 
@@ -62,7 +62,7 @@ export default function DealsPage() {
         setDeals(response.data.deals);
         setTotal(response.data.total);
       } catch (error) {
-        console.error('Failed to fetch deals:', error);
+        console.error("Failed to fetch deals:", error);
       } finally {
         setLoading(false);
       }
@@ -87,8 +87,8 @@ export default function DealsPage() {
             <h1 className="section-title">Explore Deals</h1>
             <p className="text-gray-400 mb-8">
               {user?.isVerified
-                ? '✓ You have access to all deals including verified-only offers'
-                : 'Some deals are locked. Verify your email to unlock premium deals.'}
+                ? "✓ You have access to all deals including verified-only offers"
+                : "Some deals are locked. Verify your email to unlock premium deals."}
             </p>
           </motion.div>
 
@@ -98,27 +98,35 @@ export default function DealsPage() {
             animate={{ opacity: 1, y: 0 }}
             className="mb-12 space-y-4"
           >
-            <input
-              type="text"
-              placeholder="Search deals..."
-              value={search}
-              onChange={(e) => {
-                setSearch(e.target.value);
-                setPage(0);
-              }}
-              className="input-field w-full"
-            />
+            <div>
+              <label htmlFor="search-deals" className="sr-only">
+                Search deals
+              </label>
+              <input
+                id="search-deals"
+                type="text"
+                name="search"
+                placeholder="Search deals..."
+                value={search}
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                  setPage(0);
+                }}
+                className="input-field w-full"
+                aria-label="Search deals by title or category"
+              />
+            </div>
 
             <div className="flex flex-wrap gap-2">
               <button
                 onClick={() => {
-                  setSelectedCategory('');
+                  setSelectedCategory("");
                   setPage(0);
                 }}
                 className={`btn-small ${
-                  selectedCategory === ''
-                    ? 'bg-accent text-white'
-                    : 'bg-secondary text-gray-300 hover:bg-gray-600'
+                  selectedCategory === ""
+                    ? "bg-accent text-white"
+                    : "bg-secondary text-gray-300 hover:bg-gray-600"
                 }`}
               >
                 All Categories
@@ -132,8 +140,8 @@ export default function DealsPage() {
                   }}
                   className={`btn-small ${
                     selectedCategory === cat
-                      ? 'bg-accent text-white'
-                      : 'bg-secondary text-gray-300 hover:bg-gray-600'
+                      ? "bg-accent text-white"
+                      : "bg-secondary text-gray-300 hover:bg-gray-600"
                   }`}
                 >
                   {cat.charAt(0).toUpperCase() + cat.slice(1)}
@@ -163,7 +171,7 @@ export default function DealsPage() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <DealCard {...deal} id={deal._id || deal.id || ''} />
+                    <DealCard {...deal} id={deal._id || deal.id || ""} />
                   </motion.div>
                 ))}
               </motion.div>
@@ -201,7 +209,9 @@ export default function DealsPage() {
               animate={{ opacity: 1 }}
               className="text-center py-20"
             >
-              <p className="text-gray-400 text-lg">No deals found matching your criteria</p>
+              <p className="text-gray-400 text-lg">
+                No deals found matching your criteria
+              </p>
             </motion.div>
           )}
         </div>
