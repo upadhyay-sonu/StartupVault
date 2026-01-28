@@ -143,18 +143,45 @@ export default function Home() {
             variants={item}
             className="grid md:grid-cols-3 gap-8 py-12 border-t border-gray-800"
           >
-            <div className="text-center">
-              <div className="text-4xl font-bold text-accent mb-2">500+</div>
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              className="text-center cursor-default"
+            >
+              <motion.div
+                animate={{ y: [0, -5, 0] }}
+                transition={{ duration: 2, repeat: Infinity, delay: 0 }}
+                className="text-4xl font-bold text-accent mb-2"
+              >
+                500+
+              </motion.div>
               <p className="text-gray-400">Active Deals</p>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-accent mb-2">$2M+</div>
+            </motion.div>
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              className="text-center cursor-default"
+            >
+              <motion.div
+                animate={{ y: [0, -5, 0] }}
+                transition={{ duration: 2, repeat: Infinity, delay: 0.2 }}
+                className="text-4xl font-bold text-accent mb-2"
+              >
+                $2M+
+              </motion.div>
               <p className="text-gray-400">Total Savings</p>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-accent mb-2">5k+</div>
+            </motion.div>
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              className="text-center cursor-default"
+            >
+              <motion.div
+                animate={{ y: [0, -5, 0] }}
+                transition={{ duration: 2, repeat: Infinity, delay: 0.4 }}
+                className="text-4xl font-bold text-accent mb-2"
+              >
+                5k+
+              </motion.div>
               <p className="text-gray-400">Happy Founders</p>
-            </div>
+            </motion.div>
           </motion.div>
         </motion.section>
 

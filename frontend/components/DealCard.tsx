@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { useState } from 'react';
 
 interface DealCardProps {
   id: string;
@@ -33,16 +34,45 @@ export default function DealCard({
   isLocked,
   isClaimed,
 }: DealCardProps) {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const progress = (currentClaims / maxClaims) * 100;
   const discountDisplay = discountType === 'percentage' ? `${discount}%` : `$${discount}`;
 
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (isLocked) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    setMousePosition({
+      x: (e.clientX - rect.left - rect.width / 2) / 10,
+      y: (e.clientY - rect.top - rect.height / 2) / 10,
+    });
+  };
+
+  const handleMouseLeave = () => {
+    setMousePosition({ x: 0, y: 0 });
+  };
+
   return (
     <motion.div
-      whileHover={!isLocked ? { y: -4 } : {}}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      whileHover={!isLocked ? { y: -6, scale: 1.02 } : {}}
+      transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+      style={{
+        rotateX: !isLocked ? mousePosition.y : 0,
+        rotateY: !isLocked ? mousePosition.x : 0,
+        transformStyle: 'preserve-3d',
+      } as any}
       className="relative group"
     >
       <Link href={id ? `/deals/${id}` : '#'} className="block">
-        <div className="card-hover relative h-full">
+         <motion.div
+           className="card-hover relative h-full transition-shadow duration-300"
+           style={{
+             boxShadow: !isLocked
+               ? `0 20px 40px rgba(59, 130, 246, ${Math.abs(mousePosition.y) * 0.05 + 0.1}), 0 10px 20px rgba(0, 0, 0, 0.3)`
+               : '0 4px 6px rgba(0, 0, 0, 0.2)',
+           } as any}
+         >
           {/* Header with badge */}
           <div className="flex items-start justify-between mb-4">
             <div className="flex-1">
@@ -101,8 +131,8 @@ export default function DealCard({
               </div>
             </div>
           )}
-        </div>
-      </Link>
-    </motion.div>
-  );
-}
+          </motion.div>
+          </Link>
+          </motion.div>
+          );
+          }

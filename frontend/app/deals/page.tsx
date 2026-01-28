@@ -152,24 +152,38 @@ export default function DealsPage() {
 
           {/* Deals Grid */}
           {loading ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+            >
               {Array.from({ length: LIMIT }).map((_, i) => (
                 <DealCardSkeleton key={i} />
               ))}
-            </div>
+            </motion.div>
           ) : deals.length > 0 ? (
             <>
               <motion.div
+                layout
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.4 }}
                 className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12"
               >
-                {deals.map((deal) => (
+                {deals.map((deal, index) => (
                   <motion.div
                     key={deal._id || deal.id}
+                    layout
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{
+                      duration: 0.4,
+                      delay: index * 0.05,
+                      type: 'spring',
+                      stiffness: 100,
+                    }}
                   >
                     <DealCard {...deal} id={deal._id || deal.id || ""} />
                   </motion.div>
@@ -205,12 +219,23 @@ export default function DealsPage() {
             </>
           ) : (
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ type: 'spring', stiffness: 200 }}
               className="text-center py-20"
             >
+              <motion.div
+                animate={{ y: [0, -10, 0] }}
+                transition={{ duration: 3, repeat: Infinity }}
+                className="mb-4 text-4xl"
+              >
+                🔍
+              </motion.div>
               <p className="text-gray-400 text-lg">
                 No deals found matching your criteria
+              </p>
+              <p className="text-gray-500 text-sm mt-2">
+                Try adjusting your filters or search term
               </p>
             </motion.div>
           )}

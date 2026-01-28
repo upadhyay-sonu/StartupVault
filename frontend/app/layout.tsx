@@ -17,7 +17,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-gradient-to-b from-primary via-primary to-secondary">
-        {children}
+        <div className="min-h-screen transition-colors duration-300">
+          {children}
+        </div>
       </body>
     </html>
   );

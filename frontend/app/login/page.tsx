@@ -73,43 +73,53 @@ export default function Login() {
             )}
 
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium text-gray-300 mb-2"
-                >
-                  Email
-                </label>
-                <input
-                  id="email"
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  autoComplete="email"
-                  className="input-field"
-                  placeholder="you@startup.com"
-                />
-              </div>
+               <motion.div
+                 initial={{ opacity: 0, x: -20 }}
+                 animate={{ opacity: 1, x: 0 }}
+                 transition={{ delay: 0.1 }}
+               >
+                 <label
+                   htmlFor="email"
+                   className="block text-sm font-medium text-gray-300 mb-2"
+                 >
+                   Email
+                 </label>
+                 <motion.input
+                   whileFocus={{ scale: 1.01 }}
+                   id="email"
+                   type="email"
+                   name="email"
+                   value={formData.email}
+                   onChange={handleChange}
+                   autoComplete="email"
+                   className="input-field transition-all duration-200"
+                   placeholder="you@startup.com"
+                 />
+               </motion.div>
 
-              <div>
-                <label
-                  htmlFor="password"
-                  className="block text-sm font-medium text-gray-300 mb-2"
-                >
-                  Password
-                </label>
-                <input
-                  id="password"
-                  type="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  autoComplete="current-password"
-                  className="input-field"
-                  placeholder="••••••••"
-                />
-              </div>
+               <motion.div
+                 initial={{ opacity: 0, x: -20 }}
+                 animate={{ opacity: 1, x: 0 }}
+                 transition={{ delay: 0.15 }}
+               >
+                 <label
+                   htmlFor="password"
+                   className="block text-sm font-medium text-gray-300 mb-2"
+                 >
+                   Password
+                 </label>
+                 <motion.input
+                   whileFocus={{ scale: 1.01 }}
+                   id="password"
+                   type="password"
+                   name="password"
+                   value={formData.password}
+                   onChange={handleChange}
+                   autoComplete="current-password"
+                   className="input-field transition-all duration-200"
+                   placeholder="••••••••"
+                 />
+               </motion.div>
 
               <motion.button
                 whileHover={{ scale: 1.02 }}

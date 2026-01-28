@@ -2,71 +2,99 @@
 
 import { motion } from 'framer-motion';
 
+const shimmerVariants = {
+  shimmer: {
+    backgroundPosition: ['200% 0%', '-200% 0%'],
+    transition: {
+      duration: 2,
+      repeat: Infinity,
+      ease: 'linear',
+    },
+  },
+};
+
 export function DealCardSkeleton() {
   return (
-    <div className="card">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="card"
+    >
       <div className="space-y-4">
         <div className="flex justify-between items-start">
           <div className="flex-1">
             <motion.div
-              animate={{ opacity: [0.6, 1, 0.6] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-              className="h-4 bg-gray-700 rounded w-24 mb-2"
+              variants={shimmerVariants}
+              animate="shimmer"
+              className="h-4 bg-gradient-to-r from-gray-700 via-gray-600 to-gray-700 rounded w-24 mb-2 bg-[length:200%_100%]"
             />
             <motion.div
-              animate={{ opacity: [0.6, 1, 0.6] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-              className="h-6 bg-gray-700 rounded w-40"
+              variants={shimmerVariants}
+              animate="shimmer"
+              transition={{ delay: 0.1 }}
+              className="h-6 bg-gradient-to-r from-gray-700 via-gray-600 to-gray-700 rounded w-40 bg-[length:200%_100%]"
             />
           </div>
           <motion.div
-            animate={{ opacity: [0.6, 1, 0.6] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-            className="h-8 bg-gray-700 rounded w-16"
+            variants={shimmerVariants}
+            animate="shimmer"
+            transition={{ delay: 0.2 }}
+            className="h-8 bg-gradient-to-r from-gray-700 via-gray-600 to-gray-700 rounded w-16 bg-[length:200%_100%]"
           />
         </div>
         <motion.div
-          animate={{ opacity: [0.6, 1, 0.6] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-          className="h-4 bg-gray-700 rounded w-full"
+          variants={shimmerVariants}
+          animate="shimmer"
+          transition={{ delay: 0.15 }}
+          className="h-4 bg-gradient-to-r from-gray-700 via-gray-600 to-gray-700 rounded w-full bg-[length:200%_100%]"
         />
         <motion.div
-          animate={{ opacity: [0.6, 1, 0.6] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-          className="h-12 bg-gray-700 rounded"
+          variants={shimmerVariants}
+          animate="shimmer"
+          transition={{ delay: 0.25 }}
+          className="h-12 bg-gradient-to-r from-gray-700 via-gray-600 to-gray-700 rounded bg-[length:200%_100%]"
         />
       </div>
-    </div>
+    </motion.div>
   );
 }
 
 export function DealDetailsSkeleton() {
   return (
-    <div className="space-y-8">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="space-y-8"
+    >
       <div className="space-y-4">
         <motion.div
-          animate={{ opacity: [0.6, 1, 0.6] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-          className="h-10 bg-gray-700 rounded w-3/4"
+          variants={shimmerVariants}
+          animate="shimmer"
+          className="h-10 bg-gradient-to-r from-gray-700 via-gray-600 to-gray-700 rounded w-3/4 bg-[length:200%_100%]"
         />
         <motion.div
-          animate={{ opacity: [0.6, 1, 0.6] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-          className="h-24 bg-gray-700 rounded"
+          variants={shimmerVariants}
+          animate="shimmer"
+          transition={{ delay: 0.1 }}
+          className="h-24 bg-gradient-to-r from-gray-700 via-gray-600 to-gray-700 rounded bg-[length:200%_100%]"
         />
       </div>
       <div className="card space-y-4">
         <motion.div
-          animate={{ opacity: [0.6, 1, 0.6] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-          className="h-4 bg-gray-700 rounded w-1/2"
+          variants={shimmerVariants}
+          animate="shimmer"
+          transition={{ delay: 0.15 }}
+          className="h-4 bg-gradient-to-r from-gray-700 via-gray-600 to-gray-700 rounded w-1/2 bg-[length:200%_100%]"
         />
         <motion.div
-          animate={{ opacity: [0.6, 1, 0.6] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-          className="h-4 bg-gray-700 rounded w-2/3"
+          variants={shimmerVariants}
+          animate="shimmer"
+          transition={{ delay: 0.25 }}
+          className="h-4 bg-gradient-to-r from-gray-700 via-gray-600 to-gray-700 rounded w-2/3 bg-[length:200%_100%]"
         />
       </div>
-    </div>
+    </motion.div>
   );
 }
