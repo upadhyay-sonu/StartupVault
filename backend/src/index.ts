@@ -9,6 +9,8 @@ import authRoutes from './routes/auth';
 import dealsRoutes from './routes/deals';
 import claimsRoutes from './routes/claims';
 
+console.log('Starting StartupVault backend...');
+
 dotenv.config();
 
 const app: Express = express();
@@ -54,4 +56,7 @@ const start = async () => {
   }
 };
 
-start();
+start().catch((error) => {
+  console.error('Unexpected startup error:', error);
+  process.exit(1);
+});
